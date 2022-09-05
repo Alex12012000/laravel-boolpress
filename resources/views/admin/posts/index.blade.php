@@ -12,7 +12,7 @@
                       <a href="{{ route('admin.posts.show', ['post' => $post->id])}}" class="btn btn-primary">Check Post</a>
                     </div>
                   </div> 
-            </div>
+                </div>
         {{-- End card --}}
         @endforeach
     </div>

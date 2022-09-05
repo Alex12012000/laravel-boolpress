@@ -1,5 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1>Sono la dashboard privata</h1>
+    <h1>Welcome back {{$user->name}}! </h1>
+    
 @endsection
