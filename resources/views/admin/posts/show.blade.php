@@ -7,10 +7,10 @@
 
     <ul class="list-unstyled">
         <li>
-            <b>Created at:</b> {{$post->created_at}}
+            <b>Created at:</b> {{$post->created_at->toFormattedDateString()}}
         </li>
         <li>
-            <b>Updated at:</b> {{$post->updated_at}}
+            <b>Updated at:</b> {{$post->updated_at->toFormattedDateString()}}
         </li>
         <li>
             <b>Slug:</b> {{$post->slug}}
