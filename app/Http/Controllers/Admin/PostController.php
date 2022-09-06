@@ -43,7 +43,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+
+        $request->validate($this->validationRules());   
         $form_data = $request->all();
         
         $new_post = new Post();
@@ -53,7 +55,6 @@ class PostController extends Controller
         $new_post->save();
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
-
     }
 
     /**
@@ -81,7 +82,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+
+        $data = [
+            'post' => $post
+        ];
+
+        return view('admin.posts.edit', $data);
     }
 
     /**
@@ -93,7 +100,23 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->validationRules()); 
+
+        $form_data = $request->all();
+        $post_to_update = Post::findOrFail($id);
+
+        if($form_data['title'] !== $post_to_update->title) {
+            $post_to_update->slug = $this->uniqueSlug($post_to_update->title);
+        } else {
+            $post_to_update->slug = $form_data['title'];
+        }
+
+        $post_to_update->update($form_data);
+
+
+        return redirect()->route('admin.posts.show', ['post' => $post_to_update->id]);
+
+        
     }
 
     /**
@@ -104,7 +127,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post_delete = Post::findOrFail($id);
+        $post_delete->delete();
+
+        return redirect()->route('admin.posts.index');
     }
 
 
@@ -124,5 +150,12 @@ class PostController extends Controller
 
         return $slug_to_save;
 
+    }
+
+    protected function validationRules() {
+        return [
+            'title' => 'required|max:50',
+            'content' => 'required|max:60000',
+        ];
     }
 }
