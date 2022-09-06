@@ -10,12 +10,14 @@
                     <div class="card-body">
                       <h5 class="card-title">{{$post->title}}</h5>
                       <a href="{{ route('admin.posts.show', ['post' => $post->id])}}" class="btn btn-primary">Check Post</a>
+
+                      {{-- Delete --}}
                       <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         
                         <input type="submit" value="Delete" onClick="return confirm('Do you want to delete this post?');" class="btn btn-danger mt-2">
-                    </form>
+                      </form>
                     </div>
                   </div> 
                 </div>
