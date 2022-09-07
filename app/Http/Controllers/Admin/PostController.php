@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -33,8 +34,14 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.posts.create');
+    {   
+        $category = Category::all();
+
+        $data = [
+            'categories' => $category
+        ];
+
+        return view('admin.posts.create', $data);
     }
 
     /**
@@ -66,7 +73,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
 
         $data = [
             'post' => $post

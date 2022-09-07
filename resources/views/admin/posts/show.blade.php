@@ -15,6 +15,9 @@
         <li>
             <b>Slug:</b> {{$post->slug}}
         </li>
+        <li>
+            <b>Category:</b> {{$post->category ? $post->category->name : 'Nothing'}}
+        </li>
     </ul>
     <div class="mt-2">
         <p>{{$post->content}}</p>
