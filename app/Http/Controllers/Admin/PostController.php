@@ -91,9 +91,11 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        $category = Category::all();
 
         $data = [
-            'post' => $post
+            'post' => $post,
+            'categories' => $category
         ];
 
         return view('admin.posts.edit', $data);
@@ -164,6 +166,7 @@ class PostController extends Controller
         return [
             'title' => 'required|max:50',
             'content' => 'required|max:60000',
+            
         ];
     }
 }
