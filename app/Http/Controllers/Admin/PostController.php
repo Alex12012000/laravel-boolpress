@@ -37,9 +37,11 @@ class PostController extends Controller
     public function create()
     {   
         $category = Category::all();
+        $tags = Tag::all();
 
         $data = [
-            'categories' => $category
+            'categories' => $category,
+            'tags' => $tags
         ];
 
         return view('admin.posts.create', $data);
@@ -62,6 +64,10 @@ class PostController extends Controller
         $new_post->slug = $this->uniqueSlug($new_post->title);
 
         $new_post->save();
+
+        if(isset($form_data['tags'])) {
+            $new_post->tags()->sync($form_data['tags']);
+        }
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
@@ -93,10 +99,12 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $category = Category::all();
+        $tags = Tag::all();
 
         $data = [
             'post' => $post,
-            'categories' => $category
+            'categories' => $category,
+            'tags' => $tags
         ];
 
         return view('admin.posts.edit', $data);
@@ -124,6 +132,12 @@ class PostController extends Controller
 
         $post_to_update->update($form_data);
 
+        if(isset($form_data['tags'])) {
+            $post_to_update->tags()->sync($form_data['tags']);
+        } else {
+            $post_to_update->tags()->sync([]);
+        }
+
 
         return redirect()->route('admin.posts.show', ['post' => $post_to_update->id]);
 
@@ -139,6 +153,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post_delete = Post::findOrFail($id);
+        $post_delete->tags()->sync([]);
         $post_delete->delete();
 
         return redirect()->route('admin.posts.index');
@@ -167,6 +182,8 @@ class PostController extends Controller
         return [
             'title' => 'required|max:50',
             'content' => 'required|max:60000',
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|exists:tags,id'
             
         ];
     }

@@ -31,6 +31,35 @@
             </select>
         </div>
 
+        <h5>Tags</h5>
+        <div class="mb-3">
+            @foreach ($tags as $tag)
+                @if ($errors->any())
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" 
+                        value="{{$tag->id}}" 
+                        id="tag-{{$tag->id}}" 
+                        name="tags[]" 
+                        {{ in_array($tag->id, old('tags', [])) ? 'checked' : ''}}>
+                        <label class="form-check-label" for="tag-{{$tag->id}}">
+                        {{$tag->name}}
+                        </label>
+                    </div> 
+                @else   
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" 
+                        value="{{$tag->id}}" 
+                        id="tag-{{$tag->id}}" 
+                        name="tags[]" 
+                        {{ $post->tags->contains($tag) ? 'checked' : ''}}>
+                        <label class="form-check-label" for="tag-{{$tag->id}}">
+                        {{$tag->name}}
+                        </label>
+                    </div> 
+                @endif
+            @endforeach
+        </div>
+
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
             <textarea class="form-control" id="content" name="content" rows="5">{{ old('content') ? old('content') : $post->content  }}</textarea>
