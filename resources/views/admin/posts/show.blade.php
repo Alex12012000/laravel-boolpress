@@ -18,6 +18,16 @@
         <li>
             <b>Category:</b> {{$post->category ? $post->category->name : 'Nothing'}}
         </li>
+        <li>
+            <b>Tag:</b>
+            @if (!$post->tags->isEmpty())
+                @foreach ($post->tags as $tag)
+                    {{$tag->name}}{{!$loop->last ? ',' : ''}}
+                @endforeach
+            @else
+                Nothing
+            @endif
+        </li>
     </ul>
     <div class="mt-2">
         <p>{{$post->content}}</p>
