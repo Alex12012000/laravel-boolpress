@@ -1,6 +1,21 @@
 <template>
     <div>
         <a href="/admin">Area Privata</a>
-        <h1>Ciao sono guest Homepage </h1>
+        <PostCardComponent/>
     </div>
 </template>
+
+
+<script>
+import PostCardComponent from "../components/PostCardComponent.vue";
+export default {
+    name: "App",
+    components: {
+        PostCardComponent,
+    },
+}
+</script>
+
+<style>
+
+</style>
