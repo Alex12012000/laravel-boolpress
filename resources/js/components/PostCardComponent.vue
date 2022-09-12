@@ -15,6 +15,22 @@
             </div>
 
         </div>
+
+        <nav aria-label="Page navigation example" class="mt-2">
+            <ul class="pagination">
+                <li class="page-item" :class="{'disabled': currentPage <= 1}">
+                    <a class="page-link" @click="getPosts(currentPage - 1)" href="#">Previous</a>
+                </li>
+                <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                <li class="page-item" :class="{'disabled': currentPage >= lastPage}">
+                    <a class="page-link" @click="getPosts(currentPage + 1)" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+
+       
     </div>
 </template>
 
@@ -25,14 +41,23 @@ export default {
     data() {
         return {
             posts: [],
+            currentPage: 0,
+            lastPage: 0
         };
     },
     methods: {
-        getPosts: function () {
-            Axios.get("/api/posts").then((result) => {
+        getPosts(pageNumber) {
+            Axios.get("/api/posts", {
+                params: {
+                    page: pageNumber
+                }
+            }).then((result) => {
                 // console.log(result)
-                const postsData = result.data.posts;
+                const postsData = result.data.posts.data;
                 this.posts = postsData;
+                this.currentPage = result.data.posts.current_page;
+                this.lastPage = result.data.posts.last_page;
+                console.log(this.lastPage)
                 // console.log(postsData)
             });
         },
@@ -46,7 +71,7 @@ export default {
         }
     },
     mounted() {
-        this.getPosts();
+        this.getPosts(1);
     },
 };
 </script>
