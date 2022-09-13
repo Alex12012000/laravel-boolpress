@@ -1,10 +1,16 @@
 <template>
-  <h1>home</h1>
+   <div class="container">
+        <h1>home</h1>
+   </div>
 </template>
 
-<script>
-export default {
 
+
+<script>
+
+export default {
+    name: 'HomePage',
+   
 }
 </script>
 

@@ -1,18 +1,21 @@
 <template>
     <div>
-        <a href="/admin">Area Privata</a>
-        <!-- <PostCardComponent/> -->
-        <router-view></router-view>
+        <header>
+            <PageHeader/>
+        </header>
+        <main class="mt-5">
+            <router-view></router-view>
+        </main>
     </div>
 </template>
 
 
 <script>
-// import PostCardComponent from "../components/PostCardComponent.vue";
+import PageHeader from "../components/PageHeader.vue";
 export default {
     name: "App",
     components: {
-        // PostCardComponent,
+        PageHeader,
     },
 }
 </script>

@@ -5,6 +5,8 @@ Vue.use(VueRouter)
 
 import HomePage from './pages/HomePage.vue'
 import AboutPage from './pages/AboutPage.vue'
+import BlogPage from './pages/BlogPage.vue'
+import NotFound from './pages/NotFound.vue'
 
 const router = new VueRouter({
     // short for `routes: routes`
@@ -19,6 +21,16 @@ const router = new VueRouter({
             path: '/about',
             name: 'about',
             component: AboutPage
+        },
+        {
+            path: '/blog',
+            name: 'blog',
+            component: BlogPage
+        },
+        {
+            path: '/*',
+            name: 'not-found',
+            component: NotFound
         },
     ]
 })
