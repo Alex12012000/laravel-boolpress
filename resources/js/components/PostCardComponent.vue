@@ -7,16 +7,18 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ post.title }}</h5>
+                        <img v-if="post.cover" :src="post.cover" :alt="post.title" class="w-50">
                         <p class="card-text">
                             {{ slice(post.content) }}
                         </p>
+                        <router-link :to="{name: 'single-post', params: {slug: post.slug}}" type="button" class="btn btn-primary">Read more..</router-link>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <nav aria-label="Page navigation example" class="mt-2">
+        <nav aria-label="Page navigation example" class="mt-4">
             <ul class="pagination">
                 <li class="page-item" :class="{'disabled': currentPage <= 1}">
                     <a class="page-link" @click="getPosts(currentPage - 1)" href="#">Previous</a>
@@ -75,3 +77,9 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" scoped>
+    .card {
+        height: 100%;
+    }
+</style>

@@ -2068,7 +2068,6 @@ __webpack_require__.r(__webpack_exports__);
 
         if (response.data.success) {
           _this.post = response.data.post;
-          console.log(response.data.success);
         } else {
           _this.$router.push({
             name: 'not-found'
@@ -2203,7 +2202,13 @@ var render = function render() {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
-    }, [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", {
+    }, [_vm._v(_vm._s(post.title))]), _vm._v(" "), post.cover ? _c("img", {
+      staticClass: "w-50",
+      attrs: {
+        src: post.cover,
+        alt: post.title
+      }
+    }) : _vm._e(), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_vm._v("\n                        " + _vm._s(_vm.slice(post.content)) + "\n                    ")]), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-primary",
@@ -2399,9 +2404,14 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_vm.post ? _c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("div", [_c("p", [_vm._v(_vm._s(_vm.post.content))])]), _vm._v(" "), _c("div", {
-    staticClass: "category"
-  })]) : _vm._e()]);
+  }, [_vm.post ? _c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _vm.post.cover ? _c("div", {
+    staticClass: "img"
+  }, [_c("img", {
+    attrs: {
+      src: _vm.post.cover,
+      alt: _vm.post.title
+    }
+  })]) : _vm._e(), _vm._v(" "), _c("div", [_c("p", [_vm._v(_vm._s(_vm.post.content))])])]) : _vm._e()]);
 };
 
 var staticRenderFns = [];

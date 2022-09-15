@@ -11,6 +11,12 @@ class PostController extends Controller
     public function index() {
         $posts = Post::paginate(6);
 
+        foreach($posts as $post) {
+            if($post->cover) {
+                $post->cover = asset('/storage/' . $post->cover);
+            }
+        }
+
         $data = [
             'success' => true,
             'posts' => $posts
@@ -22,6 +28,9 @@ class PostController extends Controller
     public function show($slug) {
         $post = Post::where('slug', '=', $slug)->with(['tags', 'category'])->first();
 
+        if($post->cover) {
+            $post->cover = asset('/storage/' . $post->cover);
+        }
 
         if($post){
             $data = [

@@ -69,7 +69,7 @@
             <label for="image" class="form-label">Default file input example</label>
             <input class="form-control" type="file" id="image" name="image">
 
-            <img src="{{asset('/storage/' . $post->cover)}}" alt="" style="w-50">
+            <img src="{{asset('/storage/' . $post->cover)}}" alt="" class="w-50">
         </div>
 
         <input type="submit" value="Save" class="btn btn-primary">
