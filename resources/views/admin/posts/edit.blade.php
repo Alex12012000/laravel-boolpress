@@ -12,7 +12,7 @@
         </ul>
     </div>
     @endif
-    <form action="{{ route('admin.posts.update', ['post' => $post->id])}}" method="POST">
+    <form action="{{ route('admin.posts.update', ['post' => $post->id])}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -63,6 +63,13 @@
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
             <textarea class="form-control" id="content" name="content" rows="5">{{ old('content') ? old('content') : $post->content  }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Default file input example</label>
+            <input class="form-control" type="file" id="image" name="image">
+
+            <img src="{{asset('/storage/' . $post->cover)}}" alt="" style="w-50">
         </div>
 
         <input type="submit" value="Save" class="btn btn-primary">

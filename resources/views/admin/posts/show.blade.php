@@ -5,6 +5,12 @@
     <h1>{{$post->title}}</h1>
     <br>
 
+    @if ($post->cover)
+        <div class="img">
+            <img src="{{asset('/storage/' . $post->cover)}}" alt="">
+        </div>
+    @endif
+
     <ul class="list-unstyled">
         <li>
             <b>Created at:</b> {{$post->created_at->toFormattedDateString()}}

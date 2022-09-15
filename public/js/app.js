@@ -2065,7 +2065,15 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/posts/".concat(this.$route.params.slug)).then(function (response) {
         _this.post = response.data.post;
-        console.log(response.data.post);
+
+        if (response.data.success) {
+          _this.post = response.data.post;
+          console.log(response.data.success);
+        } else {
+          _this.$router.push({
+            name: 'not-found'
+          });
+        }
       });
     }
   },

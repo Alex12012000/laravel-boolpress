@@ -12,7 +12,7 @@
         </ul>
     </div>
     @endif
-    <form action="{{ route('admin.posts.store')}}" method="POST">
+    <form action="{{ route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -45,6 +45,11 @@
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
             <textarea class="form-control" id="content" name="content" rows="5"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Default file input example</label>
+            <input class="form-control" type="file" id="image" name="image">
         </div>
 
         <input type="submit" value="Save" class="btn btn-primary">
